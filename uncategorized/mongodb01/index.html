@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="mongoDB 基本命令 配置的端口端口：27017 启动命令 mongod –config &#x2F;opt&#x2F;soft&#x2F;mongodb&#x2F;mongodb.conf   登陆 mongo   关闭 ps aux | grep mongodb &#x2F;&#x2F;然后直接kill进程ordb.shutdownServer()    mongoDB 简介mongoDB是由数据库（database），集合（collection）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongodb01">
+<meta property="og:url" content="https://yoursite.com/uncategorized/mongodb01/index.html">
+<meta property="og:site_name" content="NoteBook">
+<meta property="og:description" content="mongoDB 基本命令 配置的端口端口：27017 启动命令 mongod –config &#x2F;opt&#x2F;soft&#x2F;mongodb&#x2F;mongodb.conf   登陆 mongo   关闭 ps aux | grep mongodb &#x2F;&#x2F;然后直接kill进程ordb.shutdownServer()    mongoDB 简介mongoDB是由数据库（database），集合（collection）">
+<meta property="article:published_time" content="2020-02-13T09:42:58.000Z">
+<meta property="article:modified_time" content="2020-02-14T18:13:16.512Z">
+<meta property="article:author" content="Zaq">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yoursite.com/uncategorized/mongodb01/"/>
+
+
+
+
+
+  <title>mongodb01 | NoteBook</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">NoteBook</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yoursite.com/uncategorized/mongodb01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zaq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="NoteBook">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">mongodb01</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-13T17:42:58+08:00">
+                2020-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="mongoDB-基本命令"><a href="#mongoDB-基本命令" class="headerlink" title="mongoDB 基本命令"></a>mongoDB 基本命令</h1><ul>
+<li>配置的端口<br>端口：27017</li>
+<li>启动命令<blockquote>
+<p>mongod –config /opt/soft/mongodb/mongodb.conf</p>
+</blockquote>
+</li>
+<li>登陆<blockquote>
+<p>mongo</p>
+</blockquote>
+</li>
+<li>关闭<blockquote>
+<p>ps aux | grep mongodb //然后直接kill进程<br>or<br>db.shutdownServer()</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="mongoDB-简介"><a href="#mongoDB-简介" class="headerlink" title="mongoDB 简介"></a>mongoDB 简介</h1><p>mongoDB是由数据库（database），集合（collection），文档对象（document）三个层次组成，与关系型数据库的比较如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">对比</th>
+<th align="center">MongoD</th>
+<th align="center">MySQL Oracle</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">表</td>
+<td align="center">集合</td>
+<td align="center">二维表table</td>
+</tr>
+<tr>
+<td align="center">表的一行数据</td>
+<td align="center">文档document</td>
+<td align="center">一条记录record</td>
+</tr>
+<tr>
+<td align="center">表字段</td>
+<td align="center">键key</td>
+<td align="center">字段field</td>
+</tr>
+<tr>
+<td align="center">字段值</td>
+<td align="center">值value</td>
+<td align="center">值value</td>
+</tr>
+<tr>
+<td align="center">主外键</td>
+<td align="center">无</td>
+<td align="center">PK,FK</td>
+</tr>
+</tbody></table>
+<p>mongoDB里的集合（collection）对应于关系型数据库里的表，但是集合中没有列、行和关系的概念，集合中只有文档，一个文档就相当于一条记录，这体现了模式自由的特点。</p>
+<h1 id="mongoDB-常用命令"><a href="#mongoDB-常用命令" class="headerlink" title="mongoDB 常用命令"></a>mongoDB 常用命令</h1><h2 id="查看mongoDB帮助文档"><a href="#查看mongoDB帮助文档" class="headerlink" title="查看mongoDB帮助文档"></a>查看mongoDB帮助文档</h2><blockquote>
+<p>mongo -h</p>
+</blockquote>
+<h2 id="用户操作"><a href="#用户操作" class="headerlink" title="用户操作"></a>用户操作</h2><h3 id="创建管理员用户"><a href="#创建管理员用户" class="headerlink" title="创建管理员用户"></a>创建管理员用户</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="keyword">admin</span></span><br><span class="line">db.createUser(</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">user</span>: <span class="string">"root"</span>,</span><br><span class="line">		pwd: <span class="string">"123456"</span>,</span><br><span class="line">		<span class="keyword">roles</span>: [&#123;<span class="keyword">role</span>:<span class="string">"userAdminAnyDatabase"</span>, db: <span class="string">"admin"</span>&#125;, <span class="string">"readWriteAnyDatabse"</span>]</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="查看创建的管理员账号"><a href="#查看创建的管理员账号" class="headerlink" title="查看创建的管理员账号"></a>查看创建的管理员账号</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use admin</span><br><span class="line">db.getUser(&quot;root&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="连接mongoDB"><a href="#连接mongoDB" class="headerlink" title="连接mongoDB"></a>连接mongoDB</h3><h4 id="直接连接"><a href="#直接连接" class="headerlink" title="直接连接"></a>直接连接</h4><blockquote>
+<p>mongo -u “root” –authenticationDatabase “admin” -p “123456”</p>
+</blockquote>
+<h4 id="登陆后进行验证"><a href="#登陆后进行验证" class="headerlink" title="登陆后进行验证"></a>登陆后进行验证</h4><blockquote>
+<p>mongo<br>use admin<br>db.auth(“root”, “123456”)</p>
+</blockquote>
+<h3 id="创建普通用户"><a href="#创建普通用户" class="headerlink" title="创建普通用户"></a>创建普通用户</h3><ul>
+<li>权限： 读写数据库test，只读数据库reporting</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">use test</span><br><span class="line">db.createUser(</span><br><span class="line">	&#123;</span><br><span class="line">		user: &quot;zaq&quot;</span><br><span class="line">		pwd: &quot;123456&quot;</span><br><span class="line">		roles:[&#123;role: &quot;readWrite&quot;, db: &quot;test&quot;&#125;,</span><br><span class="line">			&#123;role: &quot;read&quot;, db: &quot;reporting&quot;&#125;]</span><br><span class="line">	&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h3 id="显示当前所有用户-角色"><a href="#显示当前所有用户-角色" class="headerlink" title="显示当前所有用户/角色"></a>显示当前所有用户/角色</h3><blockquote>
+<p>show people<br>show roles</p>
+</blockquote>
+<h3 id="删除用户"><a href="#删除用户" class="headerlink" title="删除用户"></a>删除用户</h3><blockquote>
+<p>db.removeUser(“zaq”)</p>
+</blockquote>
+<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><h3 id="查询所有库"><a href="#查询所有库" class="headerlink" title="查询所有库"></a>查询所有库</h3><blockquote>
+<p>show dbs</p>
+</blockquote>
+<h3 id="查询库中的连接"><a href="#查询库中的连接" class="headerlink" title="查询库中的连接"></a>查询库中的连接</h3><blockquote>
+<p>show collections</p>
+</blockquote>
+<h3 id="创建-切换数据库"><a href="#创建-切换数据库" class="headerlink" title="创建/切换数据库"></a>创建/切换数据库</h3><blockquote>
+<p>use test #若没有test数据库就会直接创建</p>
+</blockquote>
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><blockquote>
+<p>db.dropDatabase()</p>
+</blockquote>
+<h3 id="获取数据库名称"><a href="#获取数据库名称" class="headerlink" title="获取数据库名称"></a>获取数据库名称</h3><blockquote>
+<p>db.getName()</p>
+</blockquote>
+<h3 id="获取数据库状态"><a href="#获取数据库状态" class="headerlink" title="获取数据库状态"></a>获取数据库状态</h3><blockquote>
+<p>db.stats()</p>
+</blockquote>
+<h3 id="获取当前db版本"><a href="#获取当前db版本" class="headerlink" title="获取当前db版本"></a>获取当前db版本</h3><blockquote>
+<p>db.version()</p>
+</blockquote>
+<h3 id="查看当前db的链接机器地址"><a href="#查看当前db的链接机器地址" class="headerlink" title="查看当前db的链接机器地址"></a>查看当前db的链接机器地址</h3><blockquote>
+<p>db.getMongo();</p>
+</blockquote>
+<h3 id="从指定主机上克隆数据库"><a href="#从指定主机上克隆数据库" class="headerlink" title="从指定主机上克隆数据库"></a>从指定主机上克隆数据库</h3><blockquote>
+<p>db.cloneDatabase(“127.0.0.1”)</p>
+</blockquote>
+<h3 id="从指定机器上复制指定数据库数据到某一个数据库"><a href="#从指定机器上复制指定数据库数据到某一个数据库" class="headerlink" title="从指定机器上复制指定数据库数据到某一个数据库"></a>从指定机器上复制指定数据库数据到某一个数据库</h3><blockquote>
+<p>db.copyDatabase(“aaa”, “test”, “127.0.0.1”)</p>
+</blockquote>
+<h3 id="修复数据库"><a href="#修复数据库" class="headerlink" title="修复数据库"></a>修复数据库</h3><blockquote>
+<p>db.repairDatabase()</p>
+</blockquote>
+<h2 id="集合（collection）操作"><a href="#集合（collection）操作" class="headerlink" title="集合（collection）操作"></a>集合（collection）操作</h2><h3 id="创建一个聚集集合（table）"><a href="#创建一个聚集集合（table）" class="headerlink" title="创建一个聚集集合（table）"></a>创建一个聚集集合（table）</h3><blockquote>
+<p>db.createCollection(“human”, {“size”: 1024, capped: true, max: 100});// 指定数据库大小1024，最大存放100个文档，满了就会删除旧文档<br>db.createCollection(“people”)</p>
+</blockquote>
+<h3 id="查看集合状态"><a href="#查看集合状态" class="headerlink" title="查看集合状态"></a>查看集合状态</h3><blockquote>
+<p>db.people.stats()</p>
+</blockquote>
+<h3 id="获取指定集合"><a href="#获取指定集合" class="headerlink" title="获取指定集合"></a>获取指定集合</h3><blockquote>
+<p>db.getCollection(“human”)</p>
+</blockquote>
+<h3 id="获取当前db中的所有集合"><a href="#获取当前db中的所有集合" class="headerlink" title="获取当前db中的所有集合"></a>获取当前db中的所有集合</h3><blockquote>
+<p>db.getCollectionNames()</p>
+</blockquote>
+<h3 id="显示当前db所有聚集索引的状态"><a href="#显示当前db所有聚集索引的状态" class="headerlink" title="显示当前db所有聚集索引的状态"></a>显示当前db所有聚集索引的状态</h3><blockquote>
+<p>db.printCollectionStats();</p>
+</blockquote>
+<h2 id="聚集集合查询-Collection"><a href="#聚集集合查询-Collection" class="headerlink" title="聚集集合查询(Collection)"></a>聚集集合查询(Collection)</h2><h3 id="查询所有记录"><a href="#查询所有记录" class="headerlink" title="查询所有记录"></a>查询所有记录</h3><blockquote>
+<p>db.people.find()<br>相当于：<br>select * from people</p>
+</blockquote>
+<h3 id="查询去掉重复数据后的当前聚集集合中的某列数据"><a href="#查询去掉重复数据后的当前聚集集合中的某列数据" class="headerlink" title="查询去掉重复数据后的当前聚集集合中的某列数据"></a>查询去掉重复数据后的当前聚集集合中的某列数据</h3><blockquote>
+<p>db.people.distinct(“name”)<br>相当于：<br>select distinct name from people</p>
+</blockquote>
+<h3 id="查询age-18的记录"><a href="#查询age-18的记录" class="headerlink" title="查询age=18的记录"></a>查询age=18的记录</h3><blockquote>
+<p>db.people.find({“age”: 18})<br>相当于：<br>select * from people where age = 18</p>
+</blockquote>
+<h3 id="查询age-gt-18的记录"><a href="#查询age-gt-18的记录" class="headerlink" title="查询age &gt; 18的记录"></a>查询age &gt; 18的记录</h3><blockquote>
+<p>db.people.find({age: {$gt: 18}})</p>
+</blockquote>
+<h3 id="查询age-gt-18的记录-1"><a href="#查询age-gt-18的记录-1" class="headerlink" title="查询age &gt;= 18的记录"></a>查询age &gt;= 18的记录</h3><blockquote>
+<p>db.people.find({age: {$gte: 18}})</p>
+</blockquote>
+<h3 id="查询age-lt-18的记录"><a href="#查询age-lt-18的记录" class="headerlink" title="查询age &lt; 18的记录"></a>查询age &lt; 18的记录</h3><blockquote>
+<p>db.people.find({age: {$lt: 18}})</p>
+</blockquote>
+<h3 id="查询age-lt-18的记录-1"><a href="#查询age-lt-18的记录-1" class="headerlink" title="查询age &lt;= 18的记录"></a>查询age &lt;= 18的记录</h3><blockquote>
+<p>db.people.find({age: {$lte: 18}})</p>
+</blockquote>
+<h3 id="查询age-gt-23-并且-age-lt-26"><a href="#查询age-gt-23-并且-age-lt-26" class="headerlink" title="查询age &gt;= 23 并且 age &lt;= 26"></a>查询age &gt;= 23 并且 age &lt;= 26</h3><blockquote>
+<p>db.people.find({age: {$gte: 23, $lte: 26}})</p>
+</blockquote>
+<p><a href="https://blog.csdn.net/qq_42039281/article/details/90265028" target="_blank" rel="noopener">https://blog.csdn.net/qq_42039281/article/details/90265028</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/uncategorized/typescript01/" rel="next" title="typescript01">
+                <i class="fa fa-chevron-left"></i> typescript01
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/uncategorized/express01/" rel="prev" title="express01">
+                express01 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zaq</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mongoDB-基本命令"><span class="nav-number">1.</span> <span class="nav-text">mongoDB 基本命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mongoDB-简介"><span class="nav-number">2.</span> <span class="nav-text">mongoDB 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mongoDB-常用命令"><span class="nav-number">3.</span> <span class="nav-text">mongoDB 常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看mongoDB帮助文档"><span class="nav-number">3.1.</span> <span class="nav-text">查看mongoDB帮助文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户操作"><span class="nav-number">3.2.</span> <span class="nav-text">用户操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建管理员用户"><span class="nav-number">3.2.1.</span> <span class="nav-text">创建管理员用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看创建的管理员账号"><span class="nav-number">3.2.2.</span> <span class="nav-text">查看创建的管理员账号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接mongoDB"><span class="nav-number">3.2.3.</span> <span class="nav-text">连接mongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#直接连接"><span class="nav-number">3.2.3.1.</span> <span class="nav-text">直接连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登陆后进行验证"><span class="nav-number">3.2.3.2.</span> <span class="nav-text">登陆后进行验证</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建普通用户"><span class="nav-number">3.2.4.</span> <span class="nav-text">创建普通用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示当前所有用户-角色"><span class="nav-number">3.2.5.</span> <span class="nav-text">显示当前所有用户&#x2F;角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除用户"><span class="nav-number">3.2.6.</span> <span class="nav-text">删除用户</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础操作"><span class="nav-number">3.3.</span> <span class="nav-text">基础操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询所有库"><span class="nav-number">3.3.1.</span> <span class="nav-text">查询所有库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询库中的连接"><span class="nav-number">3.3.2.</span> <span class="nav-text">查询库中的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建-切换数据库"><span class="nav-number">3.3.3.</span> <span class="nav-text">创建&#x2F;切换数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据库"><span class="nav-number">3.3.4.</span> <span class="nav-text">删除数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取数据库名称"><span class="nav-number">3.3.5.</span> <span class="nav-text">获取数据库名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取数据库状态"><span class="nav-number">3.3.6.</span> <span class="nav-text">获取数据库状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前db版本"><span class="nav-number">3.3.7.</span> <span class="nav-text">获取当前db版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看当前db的链接机器地址"><span class="nav-number">3.3.8.</span> <span class="nav-text">查看当前db的链接机器地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从指定主机上克隆数据库"><span class="nav-number">3.3.9.</span> <span class="nav-text">从指定主机上克隆数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从指定机器上复制指定数据库数据到某一个数据库"><span class="nav-number">3.3.10.</span> <span class="nav-text">从指定机器上复制指定数据库数据到某一个数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修复数据库"><span class="nav-number">3.3.11.</span> <span class="nav-text">修复数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合（collection）操作"><span class="nav-number">3.4.</span> <span class="nav-text">集合（collection）操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建一个聚集集合（table）"><span class="nav-number">3.4.1.</span> <span class="nav-text">创建一个聚集集合（table）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看集合状态"><span class="nav-number">3.4.2.</span> <span class="nav-text">查看集合状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取指定集合"><span class="nav-number">3.4.3.</span> <span class="nav-text">获取指定集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前db中的所有集合"><span class="nav-number">3.4.4.</span> <span class="nav-text">获取当前db中的所有集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示当前db所有聚集索引的状态"><span class="nav-number">3.4.5.</span> <span class="nav-text">显示当前db所有聚集索引的状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚集集合查询-Collection"><span class="nav-number">3.5.</span> <span class="nav-text">聚集集合查询(Collection)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查询所有记录"><span class="nav-number">3.5.1.</span> <span class="nav-text">查询所有记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询去掉重复数据后的当前聚集集合中的某列数据"><span class="nav-number">3.5.2.</span> <span class="nav-text">查询去掉重复数据后的当前聚集集合中的某列数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询age-18的记录"><span class="nav-number">3.5.3.</span> <span class="nav-text">查询age&#x3D;18的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询age-gt-18的记录"><span class="nav-number">3.5.4.</span> <span class="nav-text">查询age &gt; 18的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询age-gt-18的记录-1"><span class="nav-number">3.5.5.</span> <span class="nav-text">查询age &gt;&#x3D; 18的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询age-lt-18的记录"><span class="nav-number">3.5.6.</span> <span class="nav-text">查询age &lt; 18的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询age-lt-18的记录-1"><span class="nav-number">3.5.7.</span> <span class="nav-text">查询age &lt;&#x3D; 18的记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询age-gt-23-并且-age-lt-26"><span class="nav-number">3.5.8.</span> <span class="nav-text">查询age &gt;&#x3D; 23 并且 age &lt;&#x3D; 26</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zaq</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
